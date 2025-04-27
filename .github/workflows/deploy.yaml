@@ -27,7 +27,7 @@ jobs:
 
       - name: Install requirements
         run: |
-          uv pip install -r requirements.txt --target-dir ./src/packages
+          uv pip install -r requirements.txt --target ./src/packages
 
       - name: Archive
         run: |
