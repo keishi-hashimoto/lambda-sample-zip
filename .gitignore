@@ -10,5 +10,3 @@ wheels/
 .venv
 *cache*
 .env
-src/packages
-!src/packages/.gitkeep
