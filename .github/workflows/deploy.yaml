@@ -31,7 +31,7 @@ jobs:
 
       - name: Archive
         run: |
-          zip -r src.zip src
+          zip -r src.zip src/*
 
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@master
