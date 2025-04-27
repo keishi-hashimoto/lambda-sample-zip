@@ -1,0 +1,34 @@
+name: deploy-to-aws-lambda
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # https://docs.astral.sh/uv/guides/integration/github/#setting-up-python
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Install requirements
+        run: |
+          uv pip install -r requirements.txt --target-dir ./src/packages
+
+      - name: Archive
+        run: |
+          zip -r src.zip src
+          ls -l src.zip
+          pwd

@@ -1,0 +1,6 @@
+[tools]
+uv = "0.5.26"
+
+[tasks.compile-requiremets]
+description = "Compile pyproject.toml to requirements.txt"
+run = "uv pip compile pyproject.toml > requirements.txt"
