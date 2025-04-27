@@ -32,5 +32,16 @@ jobs:
       - name: Archive
         run: |
           zip -r src.zip src
-          ls -l src.zip
-          pwd
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHubActions
+
+      - name: Get-caller-identity is allowed to run on role.
+        run: aws sts get-caller-identity
+
+      - name: Deploy to lambda
+        run: aws lambda update-function-code --function-name ${{ secrets.AWS_LAMBDA_FUNCTION_NAME }} --zip-file fileb://src.zip --publish
